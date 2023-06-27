@@ -2,43 +2,56 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
-{
-    public enum Game_states{
-        GameStart = 0, Player1Turn = 1, Player2Turn = 2, GameEnd = 3
-    };
-    
+{   
+    // 필드
     private DateTime _sessionStartTime;
     private DateTime _sessionEndTime;
+    
+    private double   player1_territory_num;
+    private double   player2_territory_num;
 
-    // 플레이어 1,2의 영토 수
-    private double player1_territory_num;
-    private double player2_territory_num;
-
-    private int player_turn; // 현재 플레이어 차례
-    private int player_pass_num; // 플레이어가 연속으로 패스하였는지 체크. (두 플레이어가 연속해서 패스 하면 게임 종료) 
+    [SerializeField]
+    private GameFlowController gameFlowController;
 
     [SerializeField]
     private List<GameObject> gameBoard;
 
-    public double Player1_territory_num { get; set; }
-    public double Player2_territory_num { get; set; }
+    [SerializeField]
+    private CastleSpawner castleSpawner;
 
-    public int Player_turn { get; set; }
-    public int Player_pass_num { get; set; }
+    // 프로퍼티
+    public double Player1_territory_num { 
+        get { return player1_territory_num; } 
+        set { player1_territory_num = value; }
+    }
+    public double Player2_territory_num { 
+        get { return player2_territory_num; } 
+        set { player2_territory_num = value; }
+    }
 
-    public List<GameObject> GameBoard { get; set; }
-
+    public List<GameObject> GameBoard { 
+        get { return gameBoard; } 
+        set { gameBoard = value; }
+    }
     private void Start()
     {
+        int count = 0;
+        while (count < 81)
+        {
+            int index = count;
+            gameBoard[index].GetComponent<Button>().onClick.AddListener(() => OnClickButton_gameboard(index));
+            count += 1;
+        }
+
         _sessionStartTime = DateTime.Now;
 
         Debug.Log("Game Session started @: " + DateTime.Now);
     }
 
-    void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         _sessionEndTime = DateTime.Now;
 
@@ -48,4 +61,37 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game session lasted: " + timediff);
     }
 
+    private void OnClickButton_gameboard(int num)
+    {
+        if (gameFlowController.Is_Player1_done || gameFlowController.Is_Player2_done)
+            return;
+
+        if (num == 40)
+            return;
+
+        Debug.Log(num);
+        bool isSuccess = false;
+        var tileComponenet = GameBoard[num].GetComponent<Tile>();
+
+        if(tileComponenet.CanPlaceCastle)
+        {
+            isSuccess = castleSpawner.SpawnCastle(GameBoard[num].transform.position, gameFlowController.CurrentState);
+        }
+
+        if(isSuccess)
+        {
+            tileComponenet.CanPlaceCastle = false;
+
+            if(gameFlowController.CurrentState == Game_states.Player1Turn)
+            {
+                gameBoard[num].GetComponent<Image>().color = Color.blue;
+                gameFlowController.Is_Player1_done = true;
+            }
+            else if (gameFlowController.CurrentState == Game_states.Player2Turn) 
+            {
+                gameBoard[num].GetComponent<Image>().color = Color.red;
+                gameFlowController.Is_Player2_done = true;
+            }
+        }
+    }
 }
