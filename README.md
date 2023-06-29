@@ -2,11 +2,7 @@
 게임 클라이언트 개발 (김 한승) / 게임 서버 API 개발 (김 진수) 
 
 ![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/e03ab13b-5f18-41e6-a950-5fb39dda2ffe)
-![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/7282dcfe-4fc7-43d0-9133-e946eec23315)
 ![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/2864cec6-9db4-4267-90ab-981336494da1)
-![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/99714ca5-f182-4dcf-99b2-d50184c3d644)
-
-
 
 게임 클라이언트 개발
 0. 게임 씬 구성(UI 개발)
