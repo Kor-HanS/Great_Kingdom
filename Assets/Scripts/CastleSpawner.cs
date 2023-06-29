@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CastleSpawner : MonoBehaviour
 {
+    public readonly float X_DIFF = -200f;
+    public readonly float Y_DIFF = -1040f;
+
     [SerializeField]
     private GameObject panel_GameBoard;
 
@@ -15,8 +18,9 @@ public class CastleSpawner : MonoBehaviour
 
     public bool SpawnCastle(Vector3 vector3, Game_states game_state)
     {
-        vector3.x -= 200f;
-        vector3.y -= 1040f;
+        // 게임판과 castle 생성 위치 맞추기.
+        vector3.x += X_DIFF;
+        vector3.y += Y_DIFF;
 
         GameObject newCastle;
         if (game_state == Game_states.Player1Turn)

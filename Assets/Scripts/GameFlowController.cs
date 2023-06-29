@@ -9,19 +9,19 @@ public enum Game_states
 };
 public class GameFlowController : MonoBehaviour
 {
-    private Game_states currentState = Game_states.GameStart;
+    private Game_states currentState;
 
     [SerializeField]
-    private Button Button_Pass;
+    private Button   button_Pass;
 
     [SerializeField]
-    private TMP_Text Text_PlayerTurn;
+    private TMP_Text text_PlayerTurn;
 
-    private bool   is_Player1_done = false;
-    private bool   is_Player2_done = false;
+    private bool     is_Player1_done = false;
+    private bool     is_Player2_done = false;
 
-    private int    pass_num;
-    private bool   is_Passbtn_clicked = false;
+    private int      pass_num;
+    private bool     is_Passbtn_clicked = false;
 
     public Game_states CurrentState
     {
@@ -48,11 +48,12 @@ public class GameFlowController : MonoBehaviour
 
     private void Awake()
     {
-        Button_Pass.onClick.AddListener(() => StartCoroutine(OnClickButton_Pass()));
+        button_Pass.onClick.AddListener(() => StartCoroutine(OnClickButton_Pass()));
     }
 
     private void Start()
     {
+        currentState = Game_states.GameStart;
         StartCoroutine(GameFlow());
     }
 
@@ -67,7 +68,7 @@ public class GameFlowController : MonoBehaviour
             switch (currentState)
             {
                 case Game_states.GameStart:
-                    Text_PlayerTurn.text = $"5초 후 게임을 시작합니다.";
+                    text_PlayerTurn.text = $"5초 후 게임을 시작합니다.";
                     yield return new WaitForSeconds(5.0f); // 1프레임 대기
                     currentState = Game_states.Player1Turn;
                     pass_num = 0;
@@ -75,8 +76,8 @@ public class GameFlowController : MonoBehaviour
                     break;
 
                 case Game_states.Player1Turn:
-                    Button_Pass.gameObject.SetActive(true);
-                    Text_PlayerTurn.text = $"플레이어 1의 턴입니다.";
+                    button_Pass.gameObject.SetActive(true);
+                    text_PlayerTurn.text = $"플레이어 1의 턴입니다.";
 
                     while (true)
                     {
@@ -85,12 +86,12 @@ public class GameFlowController : MonoBehaviour
                             currentState = Game_states.Player2Turn;
                             is_Player1_done = false;
                             is_Passbtn_clicked = false;
-                            Button_Pass.gameObject.SetActive(false);
+                            button_Pass.gameObject.SetActive(false);
 
                             if (pass_num == 2)
                             {
                                 currentState = Game_states.GameEnd;
-                                Text_PlayerTurn.text = $"게임을 종료합니다.";
+                                text_PlayerTurn.text = $"게임을 종료합니다.";
                             }
                             yield return state_switch;
                             break;
@@ -110,8 +111,8 @@ public class GameFlowController : MonoBehaviour
                     break;
 
                 case Game_states.Player2Turn:
-                    Button_Pass.gameObject.SetActive(true);
-                    Text_PlayerTurn.text = $"플레이어 2의 턴입니다.";
+                    button_Pass.gameObject.SetActive(true);
+                    text_PlayerTurn.text = $"플레이어 2의 턴입니다.";
 
                     while (true)
                     {
@@ -120,12 +121,12 @@ public class GameFlowController : MonoBehaviour
                             currentState = Game_states.Player1Turn;
                             is_Player2_done = false;
                             is_Passbtn_clicked = false;
-                            Button_Pass.gameObject.SetActive(false);
+                            button_Pass.gameObject.SetActive(false);
 
                             if (pass_num == 2)
                             {
                                 currentState = Game_states.GameEnd;
-                                Text_PlayerTurn.text = $"게임을 종료합니다.";
+                                text_PlayerTurn.text = $"게임을 종료합니다.";
                             }
                             yield return state_switch;
                             break;
@@ -155,7 +156,7 @@ public class GameFlowController : MonoBehaviour
         {
             is_Passbtn_clicked = true;
             pass_num += 1;
-            Button_Pass.gameObject.SetActive(false);
+            button_Pass.gameObject.SetActive(false);
         }
         yield return null; // 1프레임 대기
     }
