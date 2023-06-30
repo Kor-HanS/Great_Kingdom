@@ -109,6 +109,8 @@ public class GameManager : Singleton<GameManager>
             }
             gameBoard = GameBoardManager.Calculate_gameBoard(gameBoard);
             Update_territoryNum();
+
+            gameFlowController.Is_Castle_surrounded = GameBoardManager.Check_castle_surrounded(gameBoard, gameFlowController.CurrentState);
         }
     }
 

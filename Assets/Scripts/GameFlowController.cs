@@ -23,6 +23,10 @@ public class GameFlowController : MonoBehaviour
     private int      pass_num;
     private bool     is_Passbtn_clicked = false;
 
+    private bool     is_Castle_surrounded = false;
+
+    private int winner = 0;
+
     public Game_states CurrentState
     {
         get { return currentState; }
@@ -44,6 +48,11 @@ public class GameFlowController : MonoBehaviour
     {
         get { return pass_num;}
         set { pass_num = value; }
+    }
+    public bool Is_Castle_surrounded
+    {
+        get { return is_Castle_surrounded; }
+        set { is_Castle_surrounded = value; }
     }
 
     private void Awake()
@@ -81,6 +90,13 @@ public class GameFlowController : MonoBehaviour
 
                     while (true)
                     {
+                        if(is_Castle_surrounded)
+                        {
+                            currentState = Game_states.GameEnd;
+                            text_PlayerTurn.text = $"승자는 플레이어 1번 입니다.";
+                            break;
+                        }
+
                         if (is_Passbtn_clicked)
                         {
                             currentState = Game_states.Player2Turn;
@@ -116,6 +132,13 @@ public class GameFlowController : MonoBehaviour
 
                     while (true)
                     {
+                        if (is_Castle_surrounded)
+                        {
+                            currentState = Game_states.GameEnd;
+                            text_PlayerTurn.text = $"승자는 플레이어 2번 입니다.";
+                            break;
+                        }
+
                         if (is_Passbtn_clicked)
                         {
                             currentState = Game_states.Player1Turn;
