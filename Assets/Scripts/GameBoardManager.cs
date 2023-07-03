@@ -167,7 +167,6 @@ public class GameBoardManager : MonoBehaviour
         }
 
         // 현재 게임판 상태를 gameBoard 객체에 입힌다.
-
         current_index = 0;
         for(int i = 1; i <= 9; i++)
         {
@@ -194,17 +193,17 @@ public class GameBoardManager : MonoBehaviour
         }
 
         // 테스트용 LOG 
+        
         for(int i = 1; i <= 9; i++)
         {
             Debug.Log($"{gameBoard_states[i, 1]}{gameBoard_states[i, 2]}{gameBoard_states[i, 3]}{gameBoard_states[i, 4]}{gameBoard_states[i, 5]}{gameBoard_states[i, 6]}{gameBoard_states[i, 7]}{gameBoard_states[i, 8]}{gameBoard_states[i, 9]}");
         }
+        
 
         return gameBoard;
     }
 
-
-
-    public static bool Check_castle_surrounded(List<GameObject> gameBoard, Game_states game_state) 
+    public static bool Check_castle_surrounded(List<GameObject> gameBoard, Tile_states tile_State)
     {
         // 9x9 내부 게임판을 읽을 때 쓸 변수
         int current_index = 0;
@@ -214,11 +213,7 @@ public class GameBoardManager : MonoBehaviour
         // 플레이어 1의 턴 일 경우, 플레이어 2의 성이 둘러싸였는지 탐색 , 플레이어 2의 턴 일 경우, 플레이어 1의 성이 둘러싸였는지 탐색 후 게임 종료 조건인지 확인
         var now_search = Tile_states.castle_player1;
 
-        if(game_state == Game_states.Player1Turn)
-        {
-            now_search = Tile_states.castle_player2;
-        }
-
+        now_search = tile_State;
 
         // BFS 탐색때 쓸 변수
         List<(int, int)> now_territory = new();

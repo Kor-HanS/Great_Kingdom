@@ -21,8 +21,6 @@ public class Tile : MonoBehaviour
     // 현재 타일의 상태는 어떠한가?
     private Tile_states tile_state;
 
-    // 현재 판에 상태 하양 , 빨강 , 파랑 
-
     public Tile_states Tile_state
     {
         get { return tile_state; }

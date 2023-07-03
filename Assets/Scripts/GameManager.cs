@@ -43,11 +43,13 @@ public class GameManager : Singleton<GameManager>
         get { return gameBoard; } 
         set { gameBoard = value; }
     }
+
     private void Start()
     {
         int count = 0;
         while (count < 81)
         {
+            // 게임 보드판 리스너 달기
             int index = count;
             gameBoard[index].GetComponent<Button>().onClick.AddListener(() => OnClickButton_gameboard(index));
             count += 1;
@@ -55,15 +57,43 @@ public class GameManager : Singleton<GameManager>
 
         GameBoardManager.Clear_gameBoard(gameBoard);
 
-
+        /*
+         * 타일의 현재 상태를 확인
         for(int i = 0; i < 81; i++)
         {
             Debug.Log($"{i}:{gameBoard[i].GetComponent<Tile>().Tile_state}");
         }
+        */
 
         _sessionStartTime = DateTime.Now;
 
         Debug.Log("Game Session started @: " + DateTime.Now);
+    }
+
+    private void Update()
+    {
+        if(gameFlowController.Is_Player1_done || gameFlowController.Is_Player2_done)
+        {
+            int count = 0;
+            while (count < 81)
+            {
+                // 게임 보드판 리스너 달기
+                int index = count;
+                gameBoard[index].GetComponent<Button>().interactable = false;
+                count += 1;
+            }
+        }
+        else
+        {
+            int count = 0;
+            while (count < 81)
+            {
+                // 게임 보드판 리스너 달기
+                int index = count;
+                gameBoard[index].GetComponent<Button>().interactable = true;
+                count += 1;
+            }
+        }
     }
 
     private void OnApplicationQuit()
@@ -78,15 +108,17 @@ public class GameManager : Singleton<GameManager>
 
     private void OnClickButton_gameboard(int num)
     {
+        bool isSuccess = false;
+        var tileComponenet = GameBoard[num].GetComponent<Tile>();
+
+        // GameFlowController에 의해 게임 상태 변화가 아직 이루어지지 않음.
         if (gameFlowController.Is_Player1_done || gameFlowController.Is_Player2_done)
             return;
 
-        if (num == 40)
+        if (num == 40) // 중간 성 무시
             return;
 
-        Debug.Log(num);
-        bool isSuccess = false;
-        var tileComponenet = GameBoard[num].GetComponent<Tile>();
+        // Debug.Log(num); -> 게임판의 몇 x 몇 이 클릭 되었는지 확인
 
         if(tileComponenet.Tile_state == Tile_states.blank)
         {
@@ -110,7 +142,8 @@ public class GameManager : Singleton<GameManager>
             gameBoard = GameBoardManager.Calculate_gameBoard(gameBoard);
             Update_territoryNum();
 
-            gameFlowController.Is_Castle_surrounded = GameBoardManager.Check_castle_surrounded(gameBoard, gameFlowController.CurrentState);
+            gameFlowController.Is_Castle_surrounded_player1 = GameBoardManager.Check_castle_surrounded(gameBoard, Tile_states.castle_player1);
+            gameFlowController.Is_Castle_surrounded_player2 = GameBoardManager.Check_castle_surrounded(gameBoard, Tile_states.castle_player2);
         }
     }
 
