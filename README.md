@@ -1,6 +1,10 @@
 # Great_Kingdom
 게임 클라이언트 개발 (김 한승) / 게임 서버 API 개발 (김 진수) 
 
+- 메인 메뉴 UI
+![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/34050b75-8dc6-407f-b72b-a5ddeda27a3d)
+
+
 ![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/e03ab13b-5f18-41e6-a950-5fb39dda2ffe)
 ![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/2864cec6-9db4-4267-90ab-981336494da1)
 
