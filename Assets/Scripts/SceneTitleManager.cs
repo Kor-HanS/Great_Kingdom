@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class Scene_Title_Manager : MonoBehaviour
+public class SceneTitleManager : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text text_title;
@@ -25,6 +25,6 @@ public class Scene_Title_Manager : MonoBehaviour
 
         }
 
-        SceneManager.LoadScene("Scene_Lobby");
+        SceneManager.LoadScene("Scene_Main");
     }
 }

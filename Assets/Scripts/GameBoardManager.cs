@@ -56,7 +56,7 @@ public class GameBoardManager : MonoBehaviour
         (int,int) now;
         (int,int) next;
         bool meet_wall_up, meet_wall_right, meet_wall_down, meet_wall_left;
-        bool meet_blue_castle, meet_red_castle, meet_middle_castle;
+        bool meet_blue_castle, meet_red_castle;
 
         // 11 x 11 판 제작  9x9 판을 둘러싼 가장자리 영역 까지 표현
         Tile_states[,] gameBoard_states = new Tile_states[11,11];
@@ -101,7 +101,6 @@ public class GameBoardManager : MonoBehaviour
                     meet_wall_left = false;
                     meet_blue_castle = false;
                     meet_red_castle = false;
-                    meet_middle_castle = false;
 
                     now_territory.Add((i, j));
                     queue.Enqueue((i,j));
@@ -127,8 +126,6 @@ public class GameBoardManager : MonoBehaviour
                                 meet_blue_castle = true;
                             else if (gameBoard_states[next.Item1, next.Item2] == Tile_states.castle_player2)
                                 meet_red_castle = true;
-                            else if (gameBoard_states[next.Item1, next.Item2] == Tile_states.castle_middle)
-                                meet_middle_castle = true;
                             else if (gameBoard_states[next.Item1, next.Item2] == Tile_states.wall_down)
                                 meet_wall_down = true;
                             else if (gameBoard_states[next.Item1, next.Item2] == Tile_states.wall_left)
