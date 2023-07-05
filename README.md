@@ -1,8 +1,12 @@
 # Great_Kingdom
 게임 클라이언트 개발 (김 한승) / 게임 서버 API 개발 (김 진수) 
 
-![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/e03ab13b-5f18-41e6-a950-5fb39dda2ffe)
-![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/2864cec6-9db4-4267-90ab-981336494da1)
+- 메인 메뉴 UI
+![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/34050b75-8dc6-407f-b72b-a5ddeda27a3d)
+
+- 설정 UI
+![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/ec8be984-adce-4fd0-a306-a69eea2e0046)
+
 
 - 플레이어 1의 성이 둘러싸인 상황 / 둘러싸이지 않은 상황(빈칸을 포함하여 둘러쌈)
 ![image](https://github.com/Kor-HanS/Great_Kingdom/assets/99121615/886ca167-fa4c-4482-a1ff-41453563add6)
