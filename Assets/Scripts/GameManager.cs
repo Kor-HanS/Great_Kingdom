@@ -147,7 +147,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void Update_territoryNum()
+    public void Update_territoryNum()
     {
         player1_territory_num = 0;
         player2_territory_num = 0;

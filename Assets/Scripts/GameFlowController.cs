@@ -80,6 +80,7 @@ public class GameFlowController : MonoBehaviour
     {
         var state_switch = new WaitForSeconds(1.0f);
         var state_before = Game_states.GameStart;
+        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         int winner = 0;
 
         while (true)
@@ -87,8 +88,15 @@ public class GameFlowController : MonoBehaviour
             switch (currentState)
             {
                 case Game_states.GameStart:
+
+                    // 영토 초기화
+                    gameManager.GetComponent<GameManager>().Player1_territory_num = 0;
+                    gameManager.GetComponent<GameManager>().Player2_territory_num = 0;
+                    gameManager.Update_territoryNum();
+
+
                     text_PlayerTurn.text = $"5초 후 게임을 시작합니다.";
-                    yield return new WaitForSeconds(5.0f); // 1프레임 대기
+                    yield return new WaitForSeconds(5.0f); // 5초 대기
                     currentState = Game_states.Player1Turn;
                     winner = 0;
                     pass_num = 0;
@@ -96,6 +104,7 @@ public class GameFlowController : MonoBehaviour
                     is_Player2_done = false;
                     is_Castle_surrounded_player1 = false;
                     is_Castle_surrounded_player2 = false;
+
                     break;
 
                 case Game_states.Player1Turn:
@@ -198,7 +207,6 @@ public class GameFlowController : MonoBehaviour
                     break;
 
                 case Game_states.GameEnd:
-                    var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
                     
                     if(pass_num == 2)
                     {

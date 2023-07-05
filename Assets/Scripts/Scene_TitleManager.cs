@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class SceneTitleManager : MonoBehaviour
+public class Scene_TitleManager : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text text_title;

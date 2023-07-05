@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CastleSpawner : MonoBehaviour
 {
-    private readonly float X_DIFF = -200f;
+    private readonly float X_DIFF = -360f;
     private readonly float Y_DIFF = -1040f;
 
     [SerializeField]
