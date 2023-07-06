@@ -14,6 +14,8 @@ public class Scene_MainManager : MonoBehaviour
 
     [SerializeField] private GameObject panel_game_end;
 
+    [SerializeField] private GameObject panel_game_room;
+
     private void Awake()
     {
         button_single_game.onClick.AddListener(OnclickButton_single_game);
@@ -29,7 +31,7 @@ public class Scene_MainManager : MonoBehaviour
 
     private void OnclickButton_multi_game()
     {
-       
+        panel_game_room.SetActive(true);
     }
 
     private void OnclickButton_exit_game()
