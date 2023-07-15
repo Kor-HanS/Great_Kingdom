@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GreatKingdomClient;
+using System.Net.Sockets;
+using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -24,7 +26,16 @@ public class NetworkManager : MonoBehaviour
         {
             instance = this;
 
-            client = new NetworkClient("119.196.19.160", 1234);
+            try
+            {
+                client = new NetworkClient("119.196.19.160", 1234);
+
+            }
+            catch(SocketException e)
+            {
+                Debug.Log("SocketException " + e.ToString());
+                GameObject.Find("Button_Multi").GetComponent<Button>().interactable = false;
+            }
             DontDestroyOnLoad(gameObject);
         }
         else
